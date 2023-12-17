@@ -89,7 +89,7 @@ for id in range(0, card_deck.get_highest_id()):
         nr_of_matches = card.get_nr_of_matches()
         # print(f"Card {card.id} has {nr_of_matches} matches")
         for n in range(1, nr_of_matches + 1):
-            copied = card_deck.get_cards(card.id + n + 1).pop().copy()
+            copied =  card_deck.get_cards(card.id + n)[0].copy()
             print(f"Copying card {copied.id}")
             card_deck.add_card(copied)
 
