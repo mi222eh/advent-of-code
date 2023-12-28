@@ -37,6 +37,10 @@ let public IsSome<'T> (input: Option<'T>) =
     | Some(value) -> true
     | None -> false
 
+let public PressAnyKeyToContinue () =
+    Console.WriteLine("Press any key to continue...")
+    Console.ReadKey(true) |> ignore
+
 [<Extension>]
 type StringExtensions =
     [<Extension>]

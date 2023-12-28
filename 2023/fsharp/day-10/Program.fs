@@ -116,6 +116,14 @@ type PipeMap(map) =
         |> List.filter Common.IsSome
         |> List.map (fun d -> d.Value)
 
+    member this.GetSurroundingPipes(pipe: Pipe) =
+        [ this.GetPipe(pipe, North)
+          this.GetPipe(pipe, South)
+          this.GetPipe(pipe, East)
+          this.GetPipe(pipe, West) ]
+        |> List.filter Common.IsSome
+        |> List.map (fun d -> d.Value)
+
 let ToCharArray (s: string) = s.ToCharArray()
 let ToPipe (c: char, x, y) = new Pipe(FromInput c, x, y)
 
@@ -156,8 +164,27 @@ let rec loop condition action =
 
 loop IsDone GetNextPipe
 
+
+
 let nrOfSteps = path.Length
 let furthest = Math.Floor((decimal) nrOfSteps / (decimal) 2)
 Console.WriteLine $"There are {nrOfSteps} steps in the pipe"
 Console.WriteLine $"Result: {furthest} steps"
 Console.ReadKey true |> ignore
+
+let GetEncapsulatedPipes () =
+    let mutable result = []
+
+    for y in 0 .. PipeMap.map.Length - 1 do
+        let list = PipeMap.map[y]
+
+        for x in 0 .. list.Length - 1 do
+            let p = list[x]
+
+            if p.Direction <> StartingPoint then
+                let surroundingPipes = PipeMap.GetSurroundingPipes(p)
+                let notIncluded = surroundingPipes |> List.except result
+
+                result <- List.append result notIncluded
+
+    result
