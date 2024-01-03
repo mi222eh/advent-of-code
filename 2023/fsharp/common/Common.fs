@@ -24,7 +24,7 @@ let public ReadInput (input: string) =
 let public ReadInputLines (input: string) =
     File.ReadAllLines(FromBaseDirectory input)
 
-let public WriteLinesOutput (input: string list) =
+let public WriteLinesOutput (input: string array) =
     File.WriteAllLines(FromBaseDirectory "output.txt", input)
 
 let public Trim (input: string) = input.Trim()
