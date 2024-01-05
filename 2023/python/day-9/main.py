@@ -1,3 +1,4 @@
+from concurrent.futures import ThreadPoolExecutor
 from enum import Enum
 import os
 from pathlib import Path
@@ -259,8 +260,9 @@ async def process_row(row: StatusRow):
     global rows_solved
     combs = get_nr_of_combinations(row)
     rows_solved += 1
+    print(f"Found {len(combs)} combinations for row {row}")
     nr_of_combinations = len(set(combs))
-    print(f"Found {nr_of_combinations} combinations for row {row}")
+    print(f"Found {nr_of_combinations} Unique")
     return nr_of_combinations
 
 
@@ -275,6 +277,10 @@ async def process():
 
 
 async def main():
+    loop = asyncio.get_running_loop()
+    loop.set_default_executor(
+        ThreadPoolExecutor(max_workers=40, thread_name_prefix="day-9")
+    )
     await process()
 
 

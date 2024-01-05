@@ -4,11 +4,12 @@
     <OutputType>Exe</OutputType>
     <TargetFramework>net8.0</TargetFramework>
     <RootNamespace>day_12</RootNamespace>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <PublishAot>True</PublishAot>
+    <InvariantGlobalization>true</InvariantGlobalization>
+    <SingleFile>true</SingleFile>
   </PropertyGroup>
-
-  <ItemGroup>
-    <Compile Include="Program.fs" />
-  </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\common\common.fsproj" />
