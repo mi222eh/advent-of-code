@@ -15,42 +15,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1ba7607a-069a-4294-9662-bad5f77fb2c4" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Day2023.03/Day2023.03.fsproj" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Day2023.09/Day2023.09.fsproj" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Day2023.10/Day2023.10.fsproj" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Day2023.11/Day2023.11.csproj" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Day2023.12/Day2023.12.csproj" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Tools/Tools.fsproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../2023/dotnet/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../2023/dotnet/aocfs.sln" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../2023/dotnet/common/Common.fs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../2023/dotnet/common/Program.fs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../2023/dotnet/common/common.fsproj" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../2023/dotnet/day-10/Pipe.fs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../2023/dotnet/day-10/Program.fs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../2023/dotnet/day-10/day-10.fsproj" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../2023/dotnet/day-11/Program.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../2023/dotnet/day-11/day-11.csproj" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../2023/dotnet/day-12/Program.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../2023/dotnet/day-12/Properties/PublishProfiles/FolderProfile.pubxml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../2023/dotnet/day-12/Properties/PublishProfiles/FolderProfile.pubxml.user" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../2023/dotnet/day-12/day-12.csproj" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../2023/dotnet/day-12/day-12.csproj.user" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../2023/dotnet/day-3/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../2023/dotnet/day-3/Program.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../2023/dotnet/day-3/csharp.csproj" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../2023/dotnet/day-3/csharp.sln" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../2023/dotnet/day-7/FSharp.fsproj" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../2023/dotnet/day-7/Program.fs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../2023/dotnet/day-8/.vscode/launch.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../2023/dotnet/day-8/Program.fs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../2023/dotnet/day-8/day-8.fsproj" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../2023/dotnet/day-9/Program.fs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../2023/dotnet/day-9/day-9.fsproj" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../2023/dotnet/day-9/main.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../2023/dotnet/day-9/output.txt" beforeDir="false" />
-    </list>
+    <list default="true" id="1ba7607a-069a-4294-9662-bad5f77fb2c4" name="Changes" comment="organizing" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -227,8 +192,30 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1733070529719</updated>
-      <workItem from="1733070530903" duration="1871000" />
+      <workItem from="1733070530903" duration="2240000" />
     </task>
+    <task id="LOCAL−00001" summary="day 1 complete and reorganization">
+      <option name="closed" value="true" />
+      <created>1733072747773</created>
+      <option name="number" value="LOCAL−00001" />
+      <option name="presentableId" value="LOCAL−00001" />
+      <updated>1733072747773</updated>
+    </task>
+    <task id="LOCAL−00002" summary="organizing">
+      <option name="closed" value="true" />
+      <created>1733072756516</created>
+      <option name="number" value="LOCAL−00002" />
+      <option name="presentableId" value="LOCAL−00002" />
+      <updated>1733072756516</updated>
+    </task>
+    <task id="LOCAL−00003" summary="organizing">
+      <option name="closed" value="true" />
+      <created>1733072767816</created>
+      <option name="number" value="LOCAL−00003" />
+      <option name="presentableId" value="LOCAL−00003" />
+      <updated>1733072767816</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -238,5 +225,8 @@
   <component name="UnityProjectConfiguration" hasMinimizedUI="false" />
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
+    <MESSAGE value="day 1 complete and reorganization" />
+    <MESSAGE value="organizing" />
+    <option name="LAST_COMMIT_MESSAGE" value="organizing" />
   </component>
 </project>
