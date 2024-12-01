@@ -1,0 +1,7 @@
+*/bin
+*/obj
+.fake
+.vs
+
+input.**.txt
+input.txt

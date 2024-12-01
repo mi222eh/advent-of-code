@@ -1,6 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <ItemGroup>
-    <ProjectReference Include="..\common\common.fsproj" />
+    <ProjectReference Include="..\Tools\Tools.fsproj" />
   </ItemGroup>
   <PropertyGroup>
     <OutputType>Exe</OutputType>
