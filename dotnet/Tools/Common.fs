@@ -20,9 +20,14 @@ let FromBaseDirectory path = Path.Join(BaseDirectory, path)
 
 let public ReadInput (input: string) =
     File.ReadAllText(FromBaseDirectory input)
-
+let public ReadInputDefault () =
+    ReadInput(FromBaseDirectory "input.txt")
 let public ReadInputLines (input: string) =
     File.ReadAllLines(FromBaseDirectory input)
+
+let public ReadInputLinesDefault () =
+    File.ReadAllLines(FromBaseDirectory "input.txt")
+
 
 let public WriteLinesOutput (input: string array) =
     File.WriteAllLines(FromBaseDirectory "output.txt", input)
