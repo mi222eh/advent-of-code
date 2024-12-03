@@ -21,7 +21,7 @@ let FromBaseDirectory path = Path.Join(BaseDirectory, path)
 let public ReadInput (input: string) =
     File.ReadAllText(FromBaseDirectory input)
 let public ReadInputDefault () =
-    ReadInput(FromBaseDirectory "input.txt")
+    ReadInput("input.txt")
 let public ReadInputLines (input: string) =
     File.ReadAllLines(FromBaseDirectory input)
 
