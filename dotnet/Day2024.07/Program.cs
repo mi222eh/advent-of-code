@@ -16,18 +16,18 @@ var totalSum = lines.AsParallel().Where(x =>
     doneAmount++;
     Console.WriteLine($"Done {doneAmount}/{totalCount}");
     return isValid;
-}).Select((c) => c.Result).Aggregate((i, a) => i + a);
+}).ToList();
 
-Console.WriteLine(lines);
+Console.WriteLine(totalSum.Select((c) => c.Result).Aggregate((i, a) => i + a));
 
 
 
 
 enum Operator
 {
-    Addition = 1,
-    Multiplication = 2,
-    Elephant = 3
+    Addition,
+    Multiplication,
+    Elephant
 }
 
 class Line(long result, List<long> numbers)
@@ -37,8 +37,9 @@ class Line(long result, List<long> numbers)
 
     public bool IsValid()
     {
-        var operations = Utils.GetPossibleOperators(Numbers).DistinctBy(x => string.Join("", x.Select(x => (int)x))).ToList();
-        return operations.Any(x => Utils.ApplyOperations(Numbers, x) == Result);
+        return Utils.TryForTarget(Numbers, Result);
+        // var operations = Utils.GetPossibleOperators(Numbers).DistinctBy(x => string.Join("", x.Select(x => (int)x))).ToList();
+        // return operations.Any(x => Utils.ApplyOperations(Numbers, x) == Result);
     }
 
 }
@@ -56,8 +57,8 @@ class Utils
     public static Operator GetNext(Operator current) => current switch
     {
         Operator.Addition => Operator.Multiplication,
-        Operator.Multiplication => Operator.Elephant,
-        Operator.Elephant => Operator.Elephant,
+        Operator.Multiplication => Operator.Multiplication,
+        // Operator.Elephant => Operator.Elephant,
         _ => throw new Exception("Invalid Operator")
     };
 
@@ -74,6 +75,25 @@ class Utils
             total = ApplyOperation(total, number, op);
         }
         return total;
+    }
+
+    public static bool TryForTarget(List<long> numbers, long target, List<Operator>? operators = null, int index = 0)
+    {
+        if (operators is null) operators = new List<Operator>();
+
+        if (operators.Count == numbers.Count - 1)
+            return ApplyOperations(numbers, operators) == target;
+
+        for (int i = index; i < numbers.Count - 1; i++)
+        {
+            foreach (var choice in Enum.GetValues<Operator>())
+            {
+                var tmpList = new List<Operator>(operators);
+                tmpList.Add(choice);
+                if (TryForTarget(numbers, target, tmpList, index + 1)) return true;
+            }
+        }
+        return false;
     }
 
     public static IEnumerable<List<Operator>> GetPossibleOperators(List<long> numbers, List<Operator>? operators = null)
