@@ -1,8 +1,6 @@
 ﻿
 
 
-using System.IO.Compression;
-
 var inputLines = Common.ReadInputLinesDefault();
 
 var combLock = new Lock();

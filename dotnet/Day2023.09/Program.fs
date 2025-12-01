@@ -3,48 +3,63 @@
 let isZero n = n = 0L
 let isNotZero n = n <> 0L
 
-let toNumber (i:string) = int64 i
-let toString (i:int64) = i.ToString()
+let toNumber (i: string) = int64 i
+let toString (i: int64) = i.ToString()
 
-let joinWithTab (a:string) (b:string) = sprintf "%s\t%s" a b
+let joinWithTab (a: string) (b: string) = sprintf "%s\t%s" a b
 
-let buildPredictions (start:list<int64>) : list<list<int64>> =
+let buildPredictions (start: list<int64>) : list<list<int64>> =
     let rec loop acc =
         let last = List.last acc
+
         if List.exists (fun x -> x <> 0L) last then
-            let next = [ for i in 1 .. (List.length last - 1) -> last.[i] - last.[i-1] ]
-            loop (acc @ [next])
-        else acc
-    loop [start]
+            let next = [ for i in 1 .. (List.length last - 1) -> last.[i] - last.[i - 1] ]
+            loop (acc @ [ next ])
+        else
+            acc
+
+    loop [ start ]
 
 let processNrL_append nrL =
     let reversed = List.rev nrL
+
     let rec loop i acc =
-        if i >= List.length reversed then List.rev acc
+        if i >= List.length reversed then
+            List.rev acc
         else
             let currentList = reversed.[i]
+
             let nrToAdd =
-                if List.forall isZero currentList then 0L
+                if List.forall isZero currentList then
+                    0L
                 else
                     let previousList = List.last acc
                     List.last currentList + List.last previousList
-            let newList = currentList @ [nrToAdd]
-            loop (i+1) (acc @ [newList])
+
+            let newList = currentList @ [ nrToAdd ]
+            loop (i + 1) (acc @ [ newList ])
+
     loop 0 []
 
 let processNrL_prepend nrL =
     let reversed = List.rev nrL
+
     let rec loop i acc =
-        if i >= List.length reversed then List.rev acc
+        if i >= List.length reversed then
+            List.rev acc
         else
             let currentList = reversed.[i]
+
             let nrToAdd =
-                if List.forall isZero currentList then 0L
+                if List.forall isZero currentList then
+                    0L
                 else
                     let previousList = List.last acc
                     List.head currentList - List.head previousList
+
             let newList = nrToAdd :: currentList
-            loop (i+1) (acc @ [newList])
+            loop (i + 1) (acc @ [ newList ])
+
     loop 0 []
 
 let lines =
@@ -65,10 +80,12 @@ let debugText =
     lines
     |> List.map (fun l ->
         let result = List.last (List.head l)
+
         let linesTxt =
             l
             |> List.map (fun nrs -> nrs |> List.map toString |> List.reduce joinWithTab)
             |> String.concat "\n"
+
         sprintf "%s\nResult for this is %d" linesTxt result)
 
 Common.WriteLinesOutput debugText
