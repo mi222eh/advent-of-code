@@ -1,83 +1,78 @@
-﻿open System.Linq
-open System
+﻿open System
 
-let IsZero n = n = (int64)0
-let IsNotZero n = n <> (int64)0
+let isZero n = n = 0L
+let isNotZero n = n <> 0L
 
-let ToNumber (i:string) = int64(i)
-let ToString (i:int64) = i.ToString()
+let toNumber (i:string) = int64 i
+let toString (i:int64) = i.ToString()
 
-let JoinWithTab (a:string) = fun b -> $"{a}\t{b}"
+let joinWithTab (a:string) (b:string) = sprintf "%s\t%s" a b
 
-let lines = Common.ReadInputLines "input.txt" 
-            |> Array.toList 
-            |> List.map(fun n -> n.Split(' ') |> Array.toList |> List.map ToNumber)
-            |> List.map (fun n ->
-                    let mutable predictions: int64 list list = [n]
-                    while predictions.Last().Any IsNotZero do
-                        let last = predictions.Last()
-                        let mutable next: int64 list = []
-                        for n in 1..last.Length - 1 do
-                            next <- next.Append(last[n] - last[n-1]) |> Seq.toList
-                        predictions <- predictions.Append(next) |> Seq.toList
-                    predictions
-                )
-            |> List.map( fun nrL -> 
-                    let mutable newL: int64 list list = [];
-                    let reversed = nrL |> List.rev
-                    for i = 0 to reversed.Length - 1 do
-                        let currentList = reversed[i]
-                        let mutable nrToAdd = (int64)0;
-                        if currentList.All IsZero then
-                            nrToAdd <- 0
-                        else
-                            let previousList = newL[i - 1]
-                            nrToAdd <- currentList.Last() + previousList.Last()
-                        newL <- newL.Append(currentList.Append(nrToAdd) |> Seq.toList) |> Seq.toList
-                    newL |> List.rev
-                )
-            |> List.map( fun nrL -> 
-                    let mutable newL: int64 list list = [];
-                    let reversed = nrL |> List.rev
-                    for i = 0 to reversed.Length - 1 do
-                        let currentList = reversed[i]
-                        let mutable nrToAdd = (int64)0;
-                        if currentList.All IsZero then
-                            nrToAdd <- 0
-                        else
-                            let previousList = newL[i - 1]
-                            nrToAdd <- currentList.First() - previousList.First()
-                        newL <- newL.Append(currentList.Prepend(nrToAdd) |> Seq.toList) |> Seq.toList
-                    newL |> List.rev
-                )
-    
-let numberList = lines
-                |> List.map(fun n -> n.First().Last())
+let buildPredictions (start:list<int64>) : list<list<int64>> =
+    let rec loop acc =
+        let last = List.last acc
+        if List.exists (fun x -> x <> 0L) last then
+            let next = [ for i in 1 .. (List.length last - 1) -> last.[i] - last.[i-1] ]
+            loop (acc @ [next])
+        else acc
+    loop [start]
 
-let part2NumberList = lines
-                    |> List.map(fun n -> n.First().First())
+let processNrL_append nrL =
+    let reversed = List.rev nrL
+    let rec loop i acc =
+        if i >= List.length reversed then List.rev acc
+        else
+            let currentList = reversed.[i]
+            let nrToAdd =
+                if List.forall isZero currentList then 0L
+                else
+                    let previousList = List.last acc
+                    List.last currentList + List.last previousList
+            let newList = currentList @ [nrToAdd]
+            loop (i+1) (acc @ [newList])
+    loop 0 []
 
+let processNrL_prepend nrL =
+    let reversed = List.rev nrL
+    let rec loop i acc =
+        if i >= List.length reversed then List.rev acc
+        else
+            let currentList = reversed.[i]
+            let nrToAdd =
+                if List.forall isZero currentList then 0L
+                else
+                    let previousList = List.last acc
+                    List.head currentList - List.head previousList
+            let newList = nrToAdd :: currentList
+            loop (i+1) (acc @ [newList])
+    loop 0 []
 
-let result = numberList |> List.reduce(fun a -> fun b-> 
-    let result = a+b
-    result
-)
+let lines =
+    Common.ReadInputLines "input.txt"
+    |> Array.toList
+    |> List.map (fun n -> n.Split(' ') |> Array.toList |> List.map toNumber)
+    |> List.map buildPredictions
+    |> List.map processNrL_append
+    |> List.map processNrL_prepend
 
+let numberList = lines |> List.map (fun n -> List.last (List.head n))
+let part2NumberList = lines |> List.map (fun n -> List.head (List.head n))
 
+let result = numberList |> List.reduce (fun a b -> a + b)
 let part2Result = part2NumberList |> List.sum
 
-let debugText = lines 
-                |> List.map(fun l -> 
-                    let result = l.First().Last()
-                    let mutable lines = ""
-                    for nrs in l do 
-                        let txt = nrs |> List.map ToString |> List.reduce JoinWithTab
-                        lines <- $"{lines}\n{txt}"
-                    $"{lines}\nResult for this is {result}"
-                    )
+let debugText =
+    lines
+    |> List.map (fun l ->
+        let result = List.last (List.head l)
+        let linesTxt =
+            l
+            |> List.map (fun nrs -> nrs |> List.map toString |> List.reduce joinWithTab)
+            |> String.concat "\n"
+        sprintf "%s\nResult for this is %d" linesTxt result)
 
 Common.WriteLinesOutput debugText
 
-printfn $"Result: {result}"
-printfn $"Result 2: {part2Result}"
+printfn "Result: %d" result
+printfn "Result 2: %d" part2Result
 Console.ReadKey true |> ignore

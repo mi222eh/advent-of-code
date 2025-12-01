@@ -9,7 +9,7 @@ type Node(value: string, l:string, r:string) =
     member val Left = l.Trim()
     member val Right = r.Trim()
 
-    static FromInput(input:string) =
+    static member FromInput(input:string) =
          input.Remove("(").Remove(")").Split ("=") 
             |> Array.map Trim 
             |> Array.toList 
@@ -17,7 +17,7 @@ type Node(value: string, l:string, r:string) =
                 | value :: lr :: _ -> value, lr 
                 | _ -> failwith "Invalid input"
             |> fun (value, lr) -> (value, lr.Split(","))
-            |> fun (value, lr) -> new Node(value, lr[0], lr[1])
+            |> fun (value, lr) -> new Node(value, lr.[0], lr.[1])
 
 
 
