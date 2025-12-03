@@ -17,47 +17,49 @@ var sum = lines.Select(line =>
 Console.WriteLine(sum);
 
 
-var sum2 = lines.Select(line =>
+var nrList = lines.Select(line =>
 {
     var indexesUsed = new List<int>();
     var gathered = new List<(int nr, int index)>();
     var intList = line.Select(c => int.Parse(c.ToString()));
+    var allTupleList = intList.ToTuple();
 
     while (gathered.Count() < 12)
     {
-        var next = intList.GetLargestNrTupleExceptIndexes(indexesUsed);
+        var next = allTupleList.Where(i => !indexesUsed.Contains(i.index)).OrderByDescending(i => i.index).MaxBy(i =>
+        {
+            var tmp = new List<(int nr, int index)>(gathered)
+            {
+                i
+            };
+            return tmp.ToSum();
+        });
         gathered.Add(next);
         indexesUsed.Add(next.index);
     }
 
     return long.Parse(string.Join("", gathered.OrderBy(c => c.index).Select(c => c.nr.ToString())));
-}).Sum();
+}).ToList();
+
+var sum2 = nrList.Sum();
 Console.WriteLine(sum2);
 
 
 static class Extensions
 {
-    record NrEntry(int nr, int index);
     extension(IEnumerable<int> nrs)
     {
-        public (int nr, int index) GetLargestNrTupleExceptIndexes(IEnumerable<int> Indexes)
+        public IEnumerable<(int nr, int index)> ToTuple()
         {
-            return nrs.Select((nr, i) => (nr, index: i))
-                .Where((tuple) => !Indexes.Contains(tuple.index))
-                .MaxBy((tuple) => tuple.nr);
+            return nrs.Select((nr, i) => (nr, index: i));
         }
-        public int GetLargestNrExceptIndexes(IEnumerable<int> Indexes)
+
+    }
+    extension(IEnumerable<(int nr, int index)> values)
+    {
+        public long ToSum()
         {
-            return nrs.Select((nr, i) => (nr, index: i))
-                .Where((tuple) => !Indexes.Contains(tuple.index))
-                .MaxBy((tuple) => tuple.nr).nr;
-        }
-        public IEnumerable<(int nr, int index)> GetLargestNrTupleListExceptIndexes(IEnumerable<int> Indexes)
-        {
-            var largest = nrs.GetLargestNrExceptIndexes(Indexes);
-            return nrs.Select((nr, i) => (nr, index: i))
-                .Where((tuple) => !Indexes.Contains(tuple.index))
-                .MaxBy((tuple) => tuple.nr);
+            return long.Parse(string.Join("",values.OrderBy(i => i.index).Select(i => i.nr.ToString())));
         }
     }
 }
